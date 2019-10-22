@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class TeacherController {
+public class ClassController {
 
     @Autowired
     private ClassService classService;
@@ -28,10 +28,5 @@ public class TeacherController {
         classService.save(aClass);
 
         return "redirect:/teacher/createClass";
-    }
-
-    @PostMapping("/error")
-    public String createClasse(@ModelAttribute("class") Class aClass){
-        return "redirect:/pages/htmlFile/createClass";
     }
 }
