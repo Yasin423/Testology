@@ -8,7 +8,7 @@ public class Class {
     @Column(name = "class_id")
     private long id;
 
-    private String name;
+    private String className;
     private String description;
     private String accessCode;
 
@@ -22,12 +22,12 @@ public class Class {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getClassName() {
+        return className;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public String getDescription() {

@@ -112,12 +112,12 @@
                         </a>
                         <ul class="ml-menu">
                             <li class="active">
-                                <a th:href="@{pages/htmlFile/createClass.html}">
+                                <a th:href="@{/class/add}">
                                     <span>Create Class</span>
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{classList.html}">
+                                <a th:href="@{/class/list}">
                                     <span>Class List</span>
                                 </a>
                             </li>
@@ -130,12 +130,12 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="createTest.html">
+                                <a >
                                     <span>Create Test</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="testList.html">
+                                <a >
                                     <span>Test List</span>
                                 </a>
                             </li>
@@ -165,10 +165,13 @@
                             <h2 > Access Code ( 23525 )</h2>
                         </div>
                         <div class="body">
-                            <form id="form_validation" method="POST" th:action="@{/teacher/createClass}" th:object="${class}">
+                            <form id="form_validation" method="POST" th:action="@{/class/add}" th:object="${class}">
+
+                                <input type="hidden" th:field="*{id}">
+
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name" th:field="*{name}" required>
+                                        <input type="text" class="form-control" name="name" th:field="*{className}" required>
                                         <label class="form-label">Class Name</label>
                                     </div>
                                 </div>
