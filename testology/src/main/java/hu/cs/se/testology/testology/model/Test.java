@@ -6,18 +6,19 @@ import javax.persistence.*;
 public class Test {
 
     @Column(name = "test_id")
-    private long id;
+    private long Id;
 
     private String name;
+    private String description;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {
-        return id;
+        return Id;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getName() {
@@ -26,5 +27,13 @@ public class Test {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

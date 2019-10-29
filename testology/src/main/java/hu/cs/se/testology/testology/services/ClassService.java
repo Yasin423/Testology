@@ -4,4 +4,8 @@ import hu.cs.se.testology.testology.model.Class;
 
 public interface ClassService {
     void save(Class aClass);
+
+    Object findAllClasses();
+
+    Class editClassById(Long id);
 }

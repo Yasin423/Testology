@@ -180,18 +180,21 @@
                             <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                 <thead>
                                     <tr>
-                                        <th>Access Code</th>
+
                                         <th>Name</th>
                                         <th>Description</th>
+                                        <th>Access Code</th>
                                         <th>Setting</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>12345</td>
-                                        <td>Soft</td>
-                                        <td>this is a static calss</td>
-                                        <td><a class="btn btn-info">Edit</a><a class="btn btn-danger"> Delete</a> </td>
+                                    <tr th:each="classes: ${classes}">
+                                        <td th:text="${classes.name}"></td>
+                                        <td th:text="${classes.description}"></td>
+                                        <td th:text="${classes.accessCode}"></td>
+                                        <td><a  class="btn btn-info" th:href="@{'/class/edit/' + ${classes.id} }">Edit</a>
+                                        <a onclick="return confirm('Do you want to delete')" class="btn btn-danger" th:href="@{'/class/delete/' + ${classes.id} }"> Delete</a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -15,4 +15,19 @@ public class ClassServiceImpl  implements ClassService {
     public void save(Class aClass) {
         classRepository.save(aClass);
     }
+
+    @Override
+    public Object findAllClasses() {
+        return classRepository.findAll();
+    }
+
+    @Override
+    public Class editClassById(Long id) {
+
+        return classRepository.getOne(id);
+    }
+
+    public void deleteById(Long id) {
+        classRepository.deleteById(id);
+    }
 }
