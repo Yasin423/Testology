@@ -1,0 +1,122 @@
+<aside id="leftsidebar" class="sidebar" xmlns:th="http://www.w3.org/1999/xhtml" >
+    <!-- User Info -->
+    <div class="user-info">
+        <div class="image">
+            <img src="../static/images/user.png" th:src="@{/images/user.png}" width="48" height="48" alt="User" />
+        </div>
+        <div class="info-container">
+            <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
+            <div class="email">john.doe@example.com</div>
+            <div class="btn-group user-helper-dropdown">
+                <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+                <ul class="dropdown-menu pull-right">
+                    <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
+                    <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- #User Info -->
+    <!-- Menu -->
+    <div class="menu">
+        <ul class="list">
+            <li class="header">MAIN NAVIGATION</li>
+            <li>
+                <a href="index.html">
+                    <i class="material-icons">home</i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="material-icons">widgets</i>
+                    <span>Class</span>
+                </a>
+                <ul class="ml-menu">
+                    <li class="active">
+                        <a th:href="@{/class/add}">
+                            <span>Create Class</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/class/list}">
+                            <span>Class List</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="active">
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="material-icons">widgets</i>
+                    <span>Test</span>
+                </a>
+                <ul class="ml-menu">
+                    <li>
+                        <a th:href="@{/test/create}">
+                            <span>Create Test</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a >
+                            <span>Test List</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+    <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
+
+    <!-- Select Plugin Js -->
+    <script th:src="@{/plugins/bootstrap-select/js/bootstrap-select.js}"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script th:src="@{/plugins/jquery-slimscroll/jquery.slimscroll.js}"></script>
+
+    <!-- Jquery Validation Plugin Css -->
+    <script th:src="@{/plugins/jquery-validation/jquery.validate.js}"></script>
+
+    <!-- JQuery Steps Plugin Js -->
+    <script th:src="@{/plugins/jquery-steps/jquery.steps.js}"></script>
+
+    <!-- Sweet Alert Plugin Js -->
+    <script th:src="@{/plugins/sweetalert/sweetalert.min.js}"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script th:src="@{/plugins/node-waves/waves.js}"></script>
+
+    <!-- Custom Js -->
+    <script th:src="@{/js/admin.js}"></script>
+    <script th:src="@{/js/pages/forms/form-validation.js}"></script>
+
+    <!-- Demo Js -->
+    <script th:src="@{/js/demo.js}"></script>
+    <!-- Google Fonts -->
+    <link th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext}" rel="stylesheet" type="text/css">
+    <link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link th:href="@{/plugins/bootstrap/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link th:href="@{/plugins/node-waves/waves.css}" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link th:href="@{/plugins/animate-css/animate.css}" rel="stylesheet" />
+
+    <!-- Sweet Alert Css -->
+    <link th:href="@{/plugins/sweetalert/sweetalert.css}" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link th:href="@{/css/themes/all-themes.css}" rel="stylesheet" />
+</aside>
+
+<!-- Jquery Core Js -->
