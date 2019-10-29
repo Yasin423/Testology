@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Form Validation | Bootstrap Based Admin Template - Material Design</title>
     <!-- Favicon-->
-    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../../favicon.ico"  th:href="@{/favicon.ico}" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext}" rel="stylesheet" type="text/css">
@@ -53,29 +53,15 @@
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
     <!-- Search Bar -->
-    <div class="search-bar">
-        <div class="search-icon">
-            <i class="material-icons">search</i>
-        </div>
-        <input type="text" placeholder="START TYPING...">
-        <div class="close-search">
-            <i class="material-icons">close</i>
-        </div>
-    </div>
+    <th:blocl th:include="@{/pages/htmlFile/searchBar}"></th:blocl>
     <!-- #END# Search Bar -->
     <!-- Top Bar -->
-    <nav class="navbar">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="../../index.html">TESTOLOGY</a>
-            </div>
-        </div>
-    </nav>
+
+    <th:block th:include="@{/pages/htmlFile/navbar}"></th:block>
     <!-- #Top Bar -->
     <section>
         <!-- Left Sidebar -->
+
         <aside id="leftsidebar" class="sidebar">
             <!-- User Info -->
             <div class="user-info">
@@ -147,6 +133,9 @@
                 </div> -->
             </div>
         </aside>
+
+        <th:block th:include="@{/pages/htmlFile/leftSideBar}"></th:block>
+
         <!-- #END# Right Sidebar -->
     </section>
 
@@ -165,10 +154,13 @@
                             <h2 > Access Code ( 23525 )</h2>
                         </div>
                         <div class="body">
-                            <form id="form_validation" method="POST" th:action="@{/teacher/createClass}" th:object="${class}">
+                            <form id="form_validation" method="POST" th:action="@{/class/add}" th:object="${class}">
+
+                                <input type="hidden" th:field="*{id}">
+
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name" th:field="*{name}" required>
+                                        <input type="text" class="form-control" name="name" th:field="*{className}" required>
                                         <label class="form-label">Class Name</label>
                                     </div>
                                 </div>

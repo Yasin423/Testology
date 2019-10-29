@@ -1,5 +1,6 @@
 package hu.cs.se.testology.testology.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import hu.cs.se.testology.testology.model.Class;
 import hu.cs.se.testology.testology.services.ClassService;
 import hu.cs.se.testology.testology.services.ClassServiceImpl;
@@ -8,22 +9,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jws.WebParam;
+
 @Controller
 public class ClassController {
 
     @Autowired
     private ClassServiceImpl classService;
 
-    @GetMapping("/teacher/createClass")
+    @GetMapping("/class/add")
     public String renderCreateClassPage(Model model){
 
         model.addAttribute("class", new Class());
         return "pages/htmlFile/createClass";
     }
 
-    @PostMapping("/teacher/createClass")
+    @PostMapping("/class/add")
     public String createClass(@ModelAttribute("class") Class aClass){
         classService.save(aClass);
+
         return "redirect:/class/list";
     }
     @RequestMapping(path = {"/class/list"},method = RequestMethod.GET)
@@ -39,7 +43,9 @@ public class ClassController {
     }
     @GetMapping("/class/delete/{id}")
     public String deleteClass(@PathVariable Long id){
-        classService.deleteById(id);
+        classService.deleteByID(id);
+
         return "redirect:/class/list";
     }
+
 }

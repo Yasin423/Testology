@@ -5,6 +5,8 @@ import hu.cs.se.testology.testology.repositories.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClassServiceImpl  implements ClassService {
 
@@ -20,14 +22,23 @@ public class ClassServiceImpl  implements ClassService {
     public Object findAllClasses() {
         return classRepository.findAll();
     }
-
     @Override
     public Class editClassById(Long id) {
 
         return classRepository.getOne(id);
     }
 
-    public void deleteById(Long id) {
+
+
+    public Class findClassByID(Long id) {
+        return classRepository.getOne(id);
+    }
+
+    @Override
+    public void deleteByID(Long id) {
         classRepository.deleteById(id);
     }
+
+
+
 }

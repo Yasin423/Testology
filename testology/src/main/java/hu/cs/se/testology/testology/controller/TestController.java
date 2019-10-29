@@ -1,11 +1,14 @@
 package hu.cs.se.testology.testology.controller;
 
+
 import hu.cs.se.testology.testology.model.Test;
 import hu.cs.se.testology.testology.services.TestServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+
 
 @Controller
 public class TestController {
@@ -39,5 +42,6 @@ public class TestController {
         testService.deleteTestById(id);
         return "redirect:/test/list";
     }
+
 
 }
