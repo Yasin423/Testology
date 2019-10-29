@@ -13,6 +13,7 @@ public class ClassServiceImpl  implements ClassService {
     @Autowired
     private ClassRepository classRepository;
 
+
     @Override
     public void save(Class aClass) {
         classRepository.save(aClass);
@@ -22,23 +23,14 @@ public class ClassServiceImpl  implements ClassService {
     public Object findAllClasses() {
         return classRepository.findAll();
     }
+
     @Override
     public Class editClassById(Long id) {
-
-        return classRepository.getOne(id);
-    }
-
-
-
-    public Class findClassByID(Long id) {
         return classRepository.getOne(id);
     }
 
     @Override
     public void deleteByID(Long id) {
-        classRepository.deleteById(id);
+    classRepository.deleteById(id);
     }
-
-
-
 }

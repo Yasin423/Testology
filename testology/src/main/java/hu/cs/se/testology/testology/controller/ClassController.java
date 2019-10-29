@@ -2,6 +2,7 @@ package hu.cs.se.testology.testology.controller;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import hu.cs.se.testology.testology.model.Class;
+import hu.cs.se.testology.testology.model.Test;
 import hu.cs.se.testology.testology.services.ClassService;
 import hu.cs.se.testology.testology.services.ClassServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,26 +20,25 @@ public class ClassController {
 
     @GetMapping("/class/add")
     public String renderCreateClassPage(Model model){
-
         model.addAttribute("class", new Class());
         return "pages/htmlFile/createClass";
     }
 
     @PostMapping("/class/add")
-    public String createClass(@ModelAttribute("class") Class aClass){
-        classService.save(aClass);
-
+    public String createClass(@ModelAttribute Class classed){
+        classService.save(classed);
         return "redirect:/class/list";
     }
-    @RequestMapping(path = {"/class/list"},method = RequestMethod.GET)
+    @RequestMapping(path = {"/class/list","/"},method = RequestMethod.GET)
     public String getClassPage(Model model){
         model.addAttribute("class",classService.findAllClasses());
         return "pages/htmlFile/classList";
     }
     @GetMapping("/class/edit/{id}")
     public String editClass(@PathVariable Long id, Model model){
-       Class classes=classService.editClassById(id);
-       model.addAttribute("classes",classes);
+        Class classes=classService.editClassById(id);
+
+        model.addAttribute("class",classes);
         return "pages/htmlFile/createClass";
     }
     @GetMapping("/class/delete/{id}")

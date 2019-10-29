@@ -104,14 +104,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="classes: ${classes}">
-                                        <td th:text="${classes.name}"></td>
-                                        <td th:text="${classes.description}"></td>
-                                        <td th:text="${classes.accessCode}"></td>
-                                        <td><a  class="btn btn-info" th:href="@{'/class/edit/' + ${classes.id} }">Edit</a>
-                                        <a onclick="return confirm('Do you want to delete')" class="btn btn-danger" th:href="@{'/class/delete/' + ${classes.id} }"> Delete</a>
+                                    <tr th:each="class: ${class}">
+                                        <td th:text="${class.className}"></td>
+                                        <td th:text="${class.description}"></td>
+                                        <td th:text="${class.accessCode}"></td>
+                                        <td>
+                                            <a  class="btn btn-info" th:href="@{'/class/edit/' + ${class.id} }">Edit</a>
+                                        <a onclick="return confirm('Do you want to delete')" class="btn btn-danger" th:href="@{'/class/delete/' + ${class.id} }"> Delete</a>
                                         </td>
-
                                     </tr>
                                 </tbody>
                             </table>
