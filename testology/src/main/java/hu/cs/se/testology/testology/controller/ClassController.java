@@ -48,4 +48,10 @@ public class ClassController {
         return "redirect:/class/list";
     }
 
+    @RequestMapping(path = {"/index"} , method = RequestMethod.GET)
+    public String getIndexPage(){
+
+        return "pages/htmlFile/classList";
+    }
+
 }
