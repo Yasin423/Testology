@@ -2,13 +2,14 @@ package hu.cs.se.testology.testology.controller;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import hu.cs.se.testology.testology.model.Class;
-import hu.cs.se.testology.testology.model.Test;
 import hu.cs.se.testology.testology.services.ClassService;
-import hu.cs.se.testology.testology.services.ClassServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.jws.WebParam;
 
@@ -16,42 +17,46 @@ import javax.jws.WebParam;
 public class ClassController {
 
     @Autowired
-    private ClassServiceImpl classService;
+    private ClassService classService;
 
     @GetMapping("/class/add")
     public String renderCreateClassPage(Model model){
+
         model.addAttribute("class", new Class());
         return "pages/htmlFile/createClass";
     }
 
     @PostMapping("/class/add")
-    public String createClass(@ModelAttribute Class classed){
-        classService.save(classed);
+    public String createClass(@ModelAttribute("class") Class aClass){
+
+        classService.save(aClass);
+
         return "redirect:/class/list";
     }
-    @RequestMapping(path = {"/class/list","/"},method = RequestMethod.GET)
-    public String getClassPage(Model model){
-        model.addAttribute("class",classService.findAllClasses());
+
+    @GetMapping("/class/list")
+    public String renderClassListPage(Model model){
+
+        model.addAttribute("classes" , classService.findAll());
+
         return "pages/htmlFile/classList";
     }
-    @GetMapping("/class/edit/{id}")
-    public String editClass(@PathVariable Long id, Model model){
-        Class classes=classService.editClassById(id);
 
-        model.addAttribute("class",classes);
+    @GetMapping("/class/{id}/edit")
+    public String editClass(@PathVariable Long id , Model model){
+
+        model.addAttribute("class" , classService.findClassByID(id));
+
+
         return "pages/htmlFile/createClass";
     }
-    @GetMapping("/class/delete/{id}")
+
+    @GetMapping("/class/{id}/delete")
     public String deleteClass(@PathVariable Long id){
+
         classService.deleteByID(id);
 
         return "redirect:/class/list";
-    }
-
-    @RequestMapping(path = {"/index"} , method = RequestMethod.GET)
-    public String getIndexPage(){
-
-        return "pages/htmlFile/classList";
     }
 
 }

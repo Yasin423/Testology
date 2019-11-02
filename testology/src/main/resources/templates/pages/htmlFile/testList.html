@@ -79,7 +79,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="../../index.html">TESTOLOGY</a>
+                <a class="navbar-brand" href="index.html">TESTOLOGY</a>
             </div>
         </div>
     </nav>
@@ -115,7 +115,7 @@
                             <span>Home</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">widgets</i>
                             <span>Class</span>
@@ -123,30 +123,29 @@
                         <ul class="ml-menu">
                             <li>
                                 <a href="createClass.html">
-
                                     <span>Create Class</span>
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a href="classList.html">
                                     <span>Class List</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">widgets</i>
                             <span>Test</span>
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a th:href="@{/Test/Register}">
+                                <a href="createTest.html">
                                     <span>Create Test</span>
                                 </a>
                             </li>
-                            <li>
-                                <a th:href="@{/test/list}">
+                            <li class="active">
+                                <a href="TestList.html">
                                     <span>Test List</span>
                                 </a>
                             </li>
@@ -173,7 +172,7 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                           Test List
+                            Class List
                         </h2>
                     </div>
                     <div class="body">
@@ -181,27 +180,17 @@
                             <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                 <thead>
                                     <tr>
-                                        
+                                        <th>Id</th>
                                         <th>Name</th>
-                                        <th>Description</th>
-                                        <th>ID</th>
                                         <th>Setting</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="tests: ${test}">
-                                    <td th:text="${tests.name}"></td>
-                                    <td th:text="${tests.description}"></td>
-                                    <td th:text="${tests.id}"></td>
-
-                                    <td><a  class="btn btn-info" th:href="@{'/test/edit/' + ${tests.id} }">Edit</a>
-                                        <a onclick="return confirm('Do you want to delete')" class="btn btn-danger" th:href="@{'/test/list/' + ${tests.id} }">Delete</a>
-
-
-                                    </td>
-                                </tr>
-
-<!--                                    <td><a class="btn btn-info">Edit</a><a class="btn btn-danger"> Delete</a> </td>-->
+                                    <tr>
+                                        <td>12345</td>
+                                        <td>Soft</td>
+                                        <td><a href="testView.html" class="btn btn-info">View</a><a class="btn btn-danger"> Delete</a> </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

@@ -7,12 +7,9 @@ import java.util.List;
 public interface ClassService {
     void save(Class aClass);
 
+    List<Class> findAll();
 
-    Object findAllClasses();
-
-    Class editClassById(Long id);
-
+    Class findClassByID(Long id);
 
     void deleteByID(Long id);
-
 }
