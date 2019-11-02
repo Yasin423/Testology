@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -98,23 +98,22 @@
                             </h2>
                         </div>
                         <div class="body">
-
-                            <form th:action="@{/Test/Register}" method="post" th:object="${test}">
-                                <input  type="hidden" th:field="*{id}">
-
+                            <form th:action="@{/create/test}" th:object="${test}" method="post">
                                 <div class="form-group form-float">
                                     <div class="form-line">
-
-                                        <input type="text" class="form-control" name="name" required th:field="*{name}">
+                                        <input type="text" class="form-control" name="name" required>
                                         <label class="form-label">Test Name</label>
                                     </div>
                                 </div>
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                       <select class="form-control show-tick" name="choiceTest" required >
 
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required th:field="*{description}">
-                                        <label class="form-label">Description</label>
-
+<!--                                           <option th:value=">Choose class</option>-->
+                                           <th:block th:each="class : ${classes}">
+                                               <option th:value="${class.id}" th:text="${class.className}"></option>
+                                           </th:block>
+                                        </select>
                                     </div>
                                 </div>
                                 <div id="questions">
