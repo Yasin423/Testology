@@ -13,20 +13,20 @@ import javax.jws.WebParam;
 @Controller
 public class TestController {
 
-    @Autowired
-    private ClassRepository classRepository;
-
-    @GetMapping("/test/create")
-    public String renderCreateTestPage(Model model){
-
-        model.addAttribute("classes" , classRepository.findAll());
-
-        return "/pages/htmlFile/createTest";
-    }
-
-    @PostMapping("test/create")
-    public String createTest(){
-
-        return "redirect:/test/list";
-    }
+//    @Autowired
+//    private ClassRepository classRepository;
+//
+//    @GetMapping("/test/create")
+//    public String renderCreateTestPage(Model model){
+//
+//        model.addAttribute("classes" , classRepository.findAll());
+//
+//        return "/pages/htmlFile/createTest";
+//    }
+//
+//    @PostMapping("test/create")
+//    public String createTest(){
+//
+//        return "redirect:/test/list";
+//    }
 }
