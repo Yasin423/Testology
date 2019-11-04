@@ -23,7 +23,6 @@ public class TestRestController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/pages/htmlFile/createTest");
         return modelAndView;
-//        return "/pages/htmlFile/createTest";
     }
 
     @PostMapping("test/create")
@@ -32,7 +31,6 @@ public class TestRestController {
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/test/list");
         return redirectView;
-//        return "redirect:/test/list";
     }
 
     @GetMapping("/test/list")
