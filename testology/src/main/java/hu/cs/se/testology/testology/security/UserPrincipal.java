@@ -1,4 +1,4 @@
-package hu.cs.se.testology.testology.services;
+package hu.cs.se.testology.testology.security;
 
 import hu.cs.se.testology.testology.model.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public class UserDetailsImpl implements UserDetails {
+public class UserPrincipal implements UserDetails {
 
     private User user;
 

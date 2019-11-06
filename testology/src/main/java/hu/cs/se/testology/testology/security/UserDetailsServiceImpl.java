@@ -1,4 +1,4 @@
-package hu.cs.se.testology.testology.services;
+package hu.cs.se.testology.testology.security;
 
 import hu.cs.se.testology.testology.model.User;
 import hu.cs.se.testology.testology.repositories.UserRepository;
@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("This username does not exist");
         }
 
-        UserDetailsImpl userDetails = new UserDetailsImpl();
+        UserPrincipal userDetails = new UserPrincipal();
 
         userDetails.setUser(user);
 
