@@ -1,7 +1,7 @@
 package hu.cs.se.testology.testology.services;
 
 import hu.cs.se.testology.testology.model.User;
-import hu.cs.se.testology.testology.repositories.usersRepository;
+import hu.cs.se.testology.testology.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Autowired
-    private usersRepository usersRepository;
+    private UserRepository usersRepository;
 
     @Override
     public void save(User user) {
