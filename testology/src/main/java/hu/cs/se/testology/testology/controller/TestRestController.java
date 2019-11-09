@@ -21,7 +21,7 @@ public class TestRestController {
         model.addAttribute("classes" , classRepository.findAll());
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/createTest");
+        modelAndView.setViewName("test/createTest");
         return modelAndView;
     }
 
@@ -37,7 +37,7 @@ public class TestRestController {
     public ModelAndView renderTestListPage(){
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/testList");
+        modelAndView.setViewName("test/testList");
         return modelAndView;
     }
 }
