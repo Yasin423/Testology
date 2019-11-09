@@ -1,6 +1,5 @@
 package hu.cs.se.testology.testology.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import hu.cs.se.testology.testology.model.Class;
 import hu.cs.se.testology.testology.services.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.jws.WebParam;
 
 @Controller
 public class ClassController {
@@ -23,7 +20,7 @@ public class ClassController {
     public String renderCreateClassPage(Model model){
 
         model.addAttribute("class", new Class());
-        return "pages/htmlFile/createClass";
+        return "class/createClass";
     }
 
     @PostMapping("/class/add")
@@ -39,7 +36,7 @@ public class ClassController {
 
         model.addAttribute("classes" , classService.findAll());
 
-        return "pages/htmlFile/classList";
+        return "class/classList";
     }
 
     @GetMapping("/class/{id}/edit")
@@ -48,7 +45,7 @@ public class ClassController {
         model.addAttribute("class" , classService.findClassByID(id));
 
 
-        return "pages/htmlFile/createClass";
+        return "class/createClass";
     }
 
     @GetMapping("/class/{id}/delete")
