@@ -1,9 +1,18 @@
-<div class="search-bar" xmlns:th="http://www.w3.org/1999/xhtml">
-    <div class="search-icon">
-        <i class="material-icons">search</i>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div class="search-bar" th:fragment="searchBar">
+        <div class="search-icon">
+            <i class="material-icons">search</i>
+        </div>
+        <input type="text" placeholder="START TYPING...">
+        <div class="close-search">
+            <i class="material-icons">close</i>
+        </div>
     </div>
-    <input type="text" placeholder="START TYPING...">
-    <div class="close-search">
-        <i class="material-icons">close</i>
-    </div>
-</div>
+</body>
+</html>
