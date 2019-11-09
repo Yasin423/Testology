@@ -70,16 +70,10 @@
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
-    <!-- Search Bar -->
-    <th:block th:include="@{fragments/searchBar}"></th:block>
-    <!-- #END# Search Bar -->
-    <!-- Top Bar -->
-    <th:block th:include="@{fragments/navbar}"></th:block>
-    <!-- #Top Bar -->
-    <section>
-        <!-- Left Sidebar -->
-        <th:block th:include="@{fragments/leftSideBar}"></th:block>
-        <!-- #END# Right Sidebar -->
+
+    <th:block th:replace="fragments/searchBar :: searchBar"></th:block>
+    <th:block th:replace="fragments/navbar :: navbar"></th:block>
+    <section th:replace="fragments/sideBar :: sideBar">
     </section>
 
     <section class="content">
