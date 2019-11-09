@@ -10,7 +10,7 @@ public class UserController {
     @GetMapping("/user/register")
     public String renderUserSignUpPage(){
 
-        return ("/pages/htmlFile/register");
+        return ("/register");
     }
 
     @PostMapping("/user/create")
@@ -24,7 +24,7 @@ public class UserController {
     @GetMapping("/user/login")
     public String renderUserLoginPage(){
 
-        return "/pages/htmlFile/login";
+        return "/login";
     }
 
 }

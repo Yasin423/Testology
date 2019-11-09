@@ -23,7 +23,7 @@ public class ClassController {
     public String renderCreateClassPage(Model model){
 
         model.addAttribute("class", new Class());
-        return "pages/htmlFile/createClass";
+        return "createClass";
     }
 
     @PostMapping("/class/add")
@@ -39,7 +39,7 @@ public class ClassController {
 
         model.addAttribute("classes" , classService.findAll());
 
-        return "pages/htmlFile/classList";
+        return "classList";
     }
 
     @GetMapping("/class/{id}/edit")
@@ -48,7 +48,7 @@ public class ClassController {
         model.addAttribute("class" , classService.findClassByID(id));
 
 
-        return "pages/htmlFile/createClass";
+        return "createClass";
     }
 
     @GetMapping("/class/{id}/delete")

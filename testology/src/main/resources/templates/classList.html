@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Form Validation | Bootstrap Based Admin Template - Material Design</title>
     <!-- Favicon-->
-    <link rel="icon" href="../../favicon.ico"  th:href="@{/favicon.ico}" type="image/x-icon">
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext}" rel="stylesheet" type="text/css">
@@ -29,6 +29,17 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link th:href="@{/css/themes/all-themes.css}" rel="stylesheet" />
+
+    <style type="text/css">
+        .material-icons{
+            cursor: pointer;
+        }
+        .question{
+            border: 1px double black;
+            padding: 5px 0px 5px 150px;
+            margin: 0px 10px 20px 10px;
+        }
+    </style>
 </head>
 
 <body class="theme-red">
@@ -53,61 +64,60 @@
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
     <!-- Search Bar -->
-    <th:blocl th:include="@{/pages/htmlFile/searchBar}"></th:blocl>
+    <th:block th:include="@{searchBar}"></th:block>
     <!-- #END# Search Bar -->
     <!-- Top Bar -->
-
-    <th:block th:include="@{/pages/htmlFile/navbar}"></th:block>
+    <th:block th:include="@{/navbar}"></th:block>
     <!-- #Top Bar -->
     <section>
         <!-- Left Sidebar -->
-        <th:block th:include="@{/pages/htmlFile/leftSideBar}"></th:block>
+        <th:block th:include="@{/leftSideBar}"></th:block>
         <!-- #END# Right Sidebar -->
     </section>
 
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>
-                    Create Class
-                </h2>
+                <h2>FORM EXAMPLES</h2>
             </div>
-            <!-- Basic Validation -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2 > Access Code ( 23525 )</h2>
-                        </div>
-                        <div class="body">
-                            <form id="form_validation" method="POST" th:action="@{/class/add}" th:object="${class}">
 
-                                <input type="hidden" th:field="*{id}">
-
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" th:field="*{className}" required>
-                                        <label class="form-label">Class Name</label>
-                                    </div>
-                                </div>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="description" th:field="*{description}" required>
-                                        <label class="form-label">Description</label>
-                                    </div>
-                                </div>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="description" th:field="*{accessCode}" required>
-                                        <label class="form-label">AccessCode</label>
-                                    </div>
-                                </div>
-                                <button class="btn btn-primary waves-effect" type="submit" value="submit">SUBMIT</button>
-                            </form>
+          <!-- Basic Examples -->
+          <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            Class List
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>Access Code</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th colspan="2">Setting</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="class : ${classes}">
+                                        <td th:text="${class.accessCode}"></td>
+                                        <td th:text="${class.className}"></td>
+                                        <td th:text="${class.description}"></td>
+                                        <td><a class="btn btn-info" th:href="@{/class/{id}/edit (id = ${class.id})}">Edit</a></td>
+                                        <td><a class="btn btn-danger" th:href="@{/class/{id}/delete (id = ${class.id})}"
+                                        onclick="return confirm('Are you sure?')"> Delete</a> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- #END# Basic Examples -->
         </div>
     </section>
 

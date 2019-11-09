@@ -21,7 +21,7 @@ public class TestController {
 //
 //        model.addAttribute("classes" , classRepository.findAll());
 //
-//        return "/pages/htmlFile/createTest";
+//        return "/createTest";
 //    }
 //
 //    @PostMapping("test/create")
