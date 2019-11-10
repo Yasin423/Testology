@@ -63,16 +63,10 @@
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
-    <!-- Search Bar -->
-    <th:block th:include="@{pages/htmlFile/searchBar}"></th:block>
-    <!-- #END# Search Bar -->
-    <!-- Top Bar -->
-    <th:block th:include="@{/pages/htmlFile/navbar}"></th:block>
-    <!-- #Top Bar -->
-    <section>
-        <!-- Left Sidebar -->
-        <th:block th:include="@{/pages/htmlFile/leftSideBar}"></th:block>
-        <!-- #END# Right Sidebar -->
+
+    <th:block th:replace="fragments/searchBar :: searchBar"></th:block>
+    <th:block th:replace="fragments/navbar :: navbar"></th:block>
+    <section th:replace="fragments/sideBar :: sideBar">
     </section>
 
     <section class="content">
@@ -106,8 +100,8 @@
                                         <td th:text="${class.accessCode}"></td>
                                         <td th:text="${class.className}"></td>
                                         <td th:text="${class.description}"></td>
-                                        <td><a class="btn btn-info" th:href="@{/class/{id}/edit (id = ${class.id})}">Edit</a></td>
-                                        <td><a class="btn btn-danger" th:href="@{/class/{id}/delete (id = ${class.id})}"
+                                        <td><a class="btn btn-info" th:href="@{/class/edit/{id} (id = ${class.id})}">Edit</a></td>
+                                        <td><a class="btn btn-danger" th:href="@{/class/delete/{id} (id = ${class.id})}"
                                         onclick="return confirm('Are you sure?')"> Delete</a> </td>
                                     </tr>
                                 </tbody>
