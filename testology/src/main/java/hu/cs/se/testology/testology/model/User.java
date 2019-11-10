@@ -10,7 +10,9 @@ public class User {
     private String lastName;
     private String username;
     private String password;
-    private String role;
+
+    //roles are stored comma separated
+    private String role = "";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

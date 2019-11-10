@@ -39,7 +39,7 @@ public class ClassController {
         return "class/classList";
     }
 
-    @GetMapping("/class/{id}/edit")
+    @GetMapping("/class/edit/{id}")
     public String editClass(@PathVariable Long id , Model model){
 
         model.addAttribute("class" , classService.findClassByID(id));
@@ -48,7 +48,7 @@ public class ClassController {
         return "class/createClass";
     }
 
-    @GetMapping("/class/{id}/delete")
+    @GetMapping("/class/delete/{id}")
     public String deleteClass(@PathVariable Long id){
 
         classService.deleteByID(id);
