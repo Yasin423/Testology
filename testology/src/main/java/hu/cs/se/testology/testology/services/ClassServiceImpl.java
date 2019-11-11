@@ -33,5 +33,10 @@ public class ClassServiceImpl  implements ClassService {
         classRepository.deleteById(id);
     }
 
+    @Override
+    public Class findByAccessCode(String accessCode) {
+        return classRepository.findByAccessCode(accessCode);
+    }
+
 
 }

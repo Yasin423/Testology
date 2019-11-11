@@ -15,6 +15,8 @@ public class Question {
     private String fourthAnswer;
     private String correctAnswer;
 
+    private Test test;
+
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     public long getId() {
@@ -71,5 +73,15 @@ public class Question {
 
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "test_id")
+    public Test getTest() {
+        return test;
+    }
+
+    public void setTest(Test test) {
+        this.test = test;
     }
 }

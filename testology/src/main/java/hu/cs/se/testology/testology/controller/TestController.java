@@ -2,18 +2,20 @@ package hu.cs.se.testology.testology.controller;
 
 import hu.cs.se.testology.testology.model.Question;
 import hu.cs.se.testology.testology.model.Test;
-import hu.cs.se.testology.testology.repositories.ClassRepository;
+import hu.cs.se.testology.testology.services.ClassService;
 import hu.cs.se.testology.testology.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class TestController {
 
     @Autowired
-    private ClassRepository classRepository;
+    private ClassService classService;
 
     @Autowired
     private TestService testService;
@@ -21,14 +23,16 @@ public class TestController {
     @GetMapping("/test/create")
     public String renderCreateTestPage(Model model){
 
-        model.addAttribute("classes" , classRepository.findAll());
+        model.addAttribute("classes" , classService.findAll());
         model.addAttribute("test" , new Test());
 
         return "test/createTest";
     }
 
     @PostMapping("test/create")
-    public String createTest(@ModelAttribute Test test){
+    public String createTest(@ModelAttribute Test test, @RequestParam Long classID){
+
+        test.setaClass(classService.findClassByID(classID));
 
         testService.save(test);
 
@@ -49,6 +53,8 @@ public class TestController {
 
         Test test = testService.findTestById(id);
 
+        model.addAttribute("questions" , test.getQuestions());
+        model.addAttribute("questionsNumber" , test.getQuestions().size());
         model.addAttribute("question" , new Question());
         model.addAttribute("test" , test);
 
