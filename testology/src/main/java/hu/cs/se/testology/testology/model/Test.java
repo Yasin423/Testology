@@ -8,7 +8,7 @@ public class Test {
     @Column(name = "test_id")
     private long id;
 
-    private String name;
+    private String testName;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,11 +20,11 @@ public class Test {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTestName() {
+        return testName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTestName(String testName) {
+        this.testName = testName;
     }
 }

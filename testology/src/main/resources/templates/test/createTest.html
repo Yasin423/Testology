@@ -92,16 +92,16 @@
                             </h2>
                         </div>
                         <div class="body">
-                            <form th:action="@{/test/create}" th:object="${test}" method="post">
+                            <form th:object="${test}" th:action="@{/test/create}" method="post">
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required>
+                                        <input type="text" class="form-control" name="name" th:field="*{testName}"required>
                                         <label class="form-label">Test Name</label>
                                     </div>
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-sm-12">
-                                       <select class="form-control show-tick" name="choiceTest" required >
+                                       <select class="form-control show-tick" th:name="classID" required >
 
 <!--                                           <option th:value=">Choose class</option>-->
                                            <th:block th:each="class : ${classes}">
@@ -110,82 +110,106 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div id="questions">
-                                   
-                                </div>
-                                <button class="btn btn-primary waves-effect" style=" margin-top: 10px" type="submit">SUBMIT</button>
+<!--                                <div id="questions">-->
+<!--                                   -->
+<!--                                </div>-->
+                                <button id="submitQuestions" class="btn btn-primary waves-effect" style=" margin-top: 10px" type="submit">SUBMIT</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+
             <!-- #END# Vertical Layout -->
         </div>
     </section>
 
     <script>
-        (function () {
-            var Spouse = {
-                count:    1,
+        // $(document).ready(function(){
+        //
+        //     $("#submitQuestions").click(function () {
+        //        $.ajax({
+        //            method:'POST',
+        //            url: 'TestRestController/createMultipleQuestions',
+        //            data: new FormData()
+        //        })
+        //     });
+        //
+        // });
 
-                init:     function () {
-                    var fs = document.getElementById("questions");
-                    var div = fs.appendChild(this.make("div", {id: "here"}));
-                    var btn = div.appendChild(this.make("input", {type: "button", value: "Add Question"}));
-                    btn.onclick = (function (_self) {
-                        return function () {
-                            _self.add();
-                            return false;
-                        };
-                    })(this);
-                },
 
-                add:      function () {
-                    var id = "q" + this.count;
-                    var here = document.getElementById("here");
-                    var question=here.parentNode.insertBefore(this.make("div", {className: "row question", id: "row" + this.count}), here);
-                    var clearfixP = question.appendChild(this.make("div", {className: "row clearfix", id: "row" + id}), here);
-                    var col8=clearfixP.appendChild(this.make("div", {className: "col-md-8"}));
-                    this.addField(col8,id,"Question "+this.count);
-                    var clearfixC = question.appendChild(this.make("div", {className: "row clearfix", id: "row" + this.count}), here);
-                    for (var i = 1; i <= 4; i++) {
-                        var col2=clearfixC.appendChild(this.make("div", {className: "col-md-2"}));
-                        this.addField(col2,id+"."+i,"Answer "+i);
-                    }
-                    var div = clearfixP.appendChild(this.make("div", {className: "col-md-1"}));
-                    // var btn = div.appendChild(this.make("input", {type: "button", value: "Remove", _id: "row" + this.count}));
-                    var btn = div.appendChild(this.make("i", {className:"material-icons", _id: "row" + this.count},"delete_forever"));
-                    btn.onclick = this.remove;
-                    ++this.count;
-                },
-                addField: function (parent,id,placeholder) {
-                    var fg=parent.appendChild(this.make("div", {className: "form-group"}));
-                    var fl=fg.appendChild(this.make("div", {className: "form-line"}));
-                    fl.appendChild(this.make("input", {type: "text",className:"form-control", name: id, id: id,placeholder:placeholder}));
-                },
+        // (function () {
+        //
+        //
+        //
+        //     var Spouse = {
+        //         count:    1,
+        //
+        //         init:     function () {
+        //             var fs = document.getElementById("questions");
+        //             var div = fs.appendChild(this.make("div", {id: "here"}));
+        //             var btn = div.appendChild(this.make("input", {type: "button", value: "Add Question"}));
+        //             btn.onclick = (function (_self) {
+        //                 return function () {
+        //                     _self.add();
+        //                     return false;
+        //                 };
+        //             })(this);
+        //         },
+        //
+        //         add:      function () {
+        //             var id = "q" + this.count;
+        //             var here = document.getElementById("here");
+        //             var question=here.parentNode.insertBefore(this.make("div", {className: "row question", id: "row" + this.count}), here);
+        //             var clearfixP = question.appendChild(this.make("div", {className: "row clearfix", id: "row" + id}), here);
+        //             var col8=clearfixP.appendChild(this.make("div", {className: "col-md-8"}));
+        //
+        //             //TODO: questions
+        //             this.addField(col8,"q[]","Question "+this.count);
+        //             var clearfixC = question.appendChild(this.make("div", {className: "row clearfix", id: "row" + this.count}), here);
+        //             for (var i = 1; i <= 4; i++) {
+        //                 var col2=clearfixC.appendChild(this.make("div", {className: "col-md-2"}));
+        //
+        //                 //TODO: answers
+        //                 this.addField(col2,id+"[]","Answer "+i);
+        //
+        //
+        //             }
+        //             var div = clearfixP.appendChild(this.make("div", {className: "col-md-1"}));
+        //             // var btn = div.appendChild(this.make("input", {type: "button", value: "Remove", _id: "row" + this.count}));
+        //             var btn = div.appendChild(this.make("i", {className:"material-icons", _id: "row" + this.count},"delete_forever"));
+        //             btn.onclick = this.remove;
+        //             ++this.count;
+        //         },
+        //         addField: function (parent,id,placeholder) {
+        //             var fg=parent.appendChild(this.make("div", {className: "form-group"}));
+        //             var fl=fg.appendChild(this.make("div", {className: "form-line"}));
+        //             fl.appendChild(this.make("input", {type: "text",className:"form-control", name: id, id: id,placeholder:placeholder}));
+        //         },
+        //
+        //         remove:   function () {
+        //             var row = document.getElementById(this._id);
+        //             row.remove();
+        //             return false;
+        //         },
+        //
+        //         make:     function (type, attrs, content) {
+        //             var element = document.createElement(type);
+        //             if (attrs !== undefined) {
+        //                 for (var a in attrs) {
+        //                     element[a] = attrs[a];
+        //                 }
+        //             }
+        //             if (content !== undefined) {
+        //                 element.appendChild(document.createTextNode(content));
+        //             }
+        //             return element;
+        //         }
+        //     };
+        //
+        //     Spouse.init();
+        // })();
 
-                remove:   function () {
-                    var row = document.getElementById(this._id);
-                    row.remove();
-                    return false;
-                },
-
-                make:     function (type, attrs, content) {
-                    var element = document.createElement(type);
-                    if (attrs !== undefined) {
-                        for (var a in attrs) {
-                            element[a] = attrs[a];
-                        }
-                    }
-                    if (content !== undefined) {
-                        element.appendChild(document.createTextNode(content));
-                    }
-                    return element;
-                }
-            };
-
-            Spouse.init();
-        })();
     </script>
 
     <!-- Jquery Core Js -->
