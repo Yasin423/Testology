@@ -5,6 +5,8 @@ import hu.cs.se.testology.testology.repositories.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TestServiceImpl implements TestService{
 
@@ -12,12 +14,12 @@ public class TestServiceImpl implements TestService{
     private TestRepository testRepository;
 
 
-    public Object findAll() {
+    public List<Test> findAll() {
 
         return testRepository.findAll();
     }
 
-    public void saveTest(Test test) {
+    public void save(Test test) {
         testRepository.save(test);
     }
 

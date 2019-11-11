@@ -3,6 +3,7 @@ package hu.cs.se.testology.testology.services;
 import hu.cs.se.testology.testology.model.User;
 import hu.cs.se.testology.testology.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
+
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+
         usersRepository.save(user);
     }
 
@@ -32,5 +36,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserByID(Long id) {
         usersRepository.deleteById(id);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return usersRepository.findByUsername(username);
     }
 }
