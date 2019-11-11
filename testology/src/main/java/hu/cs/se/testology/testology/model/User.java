@@ -1,6 +1,7 @@
 package hu.cs.se.testology.testology.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class User {
@@ -10,6 +11,10 @@ public class User {
     private String lastName;
     private String username;
     private String password;
+
+    private List<Class> classesAsStudent;
+
+    private List<Class> classesAsTeacher;
 
     //roles are stored comma separated
     private String role = "";
@@ -63,5 +68,23 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @ManyToMany(mappedBy = "students" , cascade = CascadeType.ALL)
+    public List<Class> getClassesAsStudent() {
+        return classesAsStudent;
+    }
+
+    public void setClassesAsStudent(List<Class> classesAsStudent) {
+        this.classesAsStudent = classesAsStudent;
+    }
+
+    @OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL)
+    public List<Class> getClassesAsTeacher() {
+        return classesAsTeacher;
+    }
+
+    public void setClassesAsTeacher(List<Class> classesAsTeacher) {
+        this.classesAsTeacher = classesAsTeacher;
     }
 }

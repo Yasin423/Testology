@@ -12,4 +12,6 @@ public interface ClassService {
     Class findClassByID(Long id);
 
     void deleteByID(Long id);
+
+    Class findByAccessCode(String accessCode);
 }

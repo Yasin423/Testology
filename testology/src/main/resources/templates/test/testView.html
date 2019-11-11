@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -73,33 +73,36 @@
 
     <section class="content">
         <div class="container-fluid">
-            <div class="block-header">
-                <h2>BASIC FORM ELEMENTS</h2>
-            </div>
             <!-- Radio -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                <label th:text="${test.testName}"></label>
+                            <br>
+                                <label th:text="${test.testName}"></label></br>
+                                <label >This test has <span th:text="${questionsNumber}"></span> questions</label>
                             </h2>
                         </div>
                         <div class="body">
-                            <div class="question">
-                                <p>firt question text</p>
-                                <div class="demo-radio-button">
-                                    <input name="group4" type="radio" id="radio_7" class="radio-col-orange" checked />
-                                    <label for="radio_7">answer1</label>
-                                    <input name="group4" type="radio" id="radio_8" class="radio-col-orange"/>
-                                    <label for="radio_8">answer2</label>
-                                    <input name="group4" type="radio" id="radio_9" class="radio-col-orange"/>
-                                    <label for="radio_9">answer3</label>
-                                    <input name="group4" type="radio" id="radio_10" class="radio-col-orange" />
-                                    <label for="radio_10">answer4</label>
-                                    
+
+                            <th:block th:each="question : ${questions}">
+
+                                <div class="question" >
+                                    <p th:text="${question.questionText}"></p>
+                                    <div class="demo-radio-button">
+                                        <input th:name="${question.id}" type="radio" th:id="${question.firstAnswer}" class="radio-col-orange"  />
+                                        <label th:for="${question.firstAnswer}" th:text="${question.firstAnswer}"></label>
+                                        <input th:name="${question.id}" type="radio" th:id="${question.secondAnswer}" class="radio-col-orange"/>
+                                        <label th:for="${question.secondAnswer}" th:text="${question.secondAnswer}"></label>
+                                        <input th:name="${question.id}" type="radio" th:id="${question.thirdAnswer}" class="radio-col-orange"/>
+                                        <label th:for="${question.thirdAnswer}" th:text="${question.thirdAnswer}"></label>
+                                        <input th:name="${question.id}" type="radio" th:id="${question.fourthAnswer}" class="radio-col-orange" />
+                                        <label th:for="${question.fourthAnswer}" th:text="${question.fourthAnswer}"></label>
+
+                                    </div>
                                 </div>
-                            </div>
+                            </th:block>
+
                         </div>
                     </div>
                 </div>
@@ -113,8 +116,8 @@
                             </h2>
                         </div>
                         <div class="body">
-                            <form th:object="${question}" th:action="@{/question/create}" method="post">
-                                <input type="text" th:name="${test.id}" th:value="${test.id}">
+                            <form th:action="@{/question/create/{testID} (testID = ${test.id})}" th:object="${question}" method="post">
+                                <input type="hidden" th:name="${testID}" th:value="${test.id}">
 
                                 <div class="form-group form-float">
                                     <div class="form-line">

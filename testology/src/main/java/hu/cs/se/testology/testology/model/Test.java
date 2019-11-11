@@ -1,6 +1,7 @@
 package hu.cs.se.testology.testology.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Test {
@@ -9,6 +10,10 @@ public class Test {
     private long id;
 
     private String testName;
+
+    private Class aClass;
+
+    private List<Question> questions;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,5 +31,25 @@ public class Test {
 
     public void setTestName(String testName) {
         this.testName = testName;
+    }
+
+
+    @ManyToOne
+    @JoinColumn(name = "class_id")
+    public Class getaClass() {
+        return aClass;
+    }
+
+    public void setaClass(Class aClass) {
+        this.aClass = aClass;
+    }
+
+    @OneToMany(mappedBy = "test")
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 }

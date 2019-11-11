@@ -1,6 +1,7 @@
 package hu.cs.se.testology.testology.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Class {
@@ -11,6 +12,10 @@ public class Class {
     private String className;
     private String description;
     private String accessCode;
+
+    private List<Test> tests;
+    private List<User> students;
+    private User teacher;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,5 +49,35 @@ public class Class {
 
     public void setAccessCode(String accessCode) {
         this.accessCode = accessCode;
+    }
+
+    @OneToMany(mappedBy = "aClass" , cascade = CascadeType.ALL)
+    public List<Test> getTests() {
+        return tests;
+    }
+
+    public void setTests(List<Test> tests) {
+        this.tests = tests;
+    }
+
+
+    @ManyToMany
+    @JoinTable(name = "student_class" , joinColumns = @JoinColumn(name = "class_id") , inverseJoinColumns = @JoinColumn(name = "student_id"))
+    public List<User> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<User> students) {
+        this.students = students;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    public User getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(User teacher) {
+        this.teacher = teacher;
     }
 }

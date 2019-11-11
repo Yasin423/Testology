@@ -1,10 +1,10 @@
 ﻿<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Form Validation | Bootstrap Based Admin Template - Material Design</title>
+    <title>Basic Form Elements | Bootstrap Based Admin Template - Material Design</title>
     <!-- Favicon-->
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
@@ -35,11 +35,8 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="../../../static/css/themes/all-themes.css" rel="stylesheet" th:href="@{/css/themes/all-themes.css}"/>
-    <style type="text/css">
-        .material-icons{
-            cursor: pointer;
-        }
-        .question{
+    <style>
+     .question{
             border: 1px double black;
             padding: 5px 0px 5px 150px;
             margin: 0px 10px 20px 10px;
@@ -68,7 +65,7 @@
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
-
+    <!-- Top Bar -->
     <th:block th:replace="fragments/searchBar :: searchBar"></th:block>
     <th:block th:replace="fragments/navbar :: navbar"></th:block>
     <section th:replace="fragments/sideBar :: sideBar">
@@ -76,46 +73,53 @@
 
     <section class="content">
         <div class="container-fluid">
-<!--            <div class="block-header">-->
-<!--                <h2>FORM EXAMPLES</h2>-->
-<!--            </div>-->
-
-          <!-- Basic Examples -->
-          <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-                    <div class="header">
-                        <h2>
-                            Test List
-                        </h2>
-                    </div>
-                    <div class="body">
-                        <div class="table-responsive">
+            <!-- Radio -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <br>
+                            <label>Students of this class</label>
+                            </h2>
+                        </div>
+                        <div class="body">
                             <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                 <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Name</th>
-                                        <th>Class</th>
-                                        <th colspan="2">Setting</th>
-                                    </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th colspan="2">Setting</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="test : ${tests}">
-                                    <td th:text="${test.id}"></td>
-                                    <td th:text="${test.testName}"></td>
-                                    <td th:text="${test.aClass.className}"></td>
-                                    <td><a class="btn btn-info" th:href="@{/test/edit/{id} (id = ${test.id})}">Edit</a></td>
-                                    <td><a class="btn btn-danger" th:href="@{/test/view/{id} (id = ${test.id})}">View</a> </td>
+                                <tr th:each="student : ${students}">
+                                    <td th:text="${student.id}"></td>
+                                    <td th:text="${student.firstName}"></td>
+                                    <td th:text="${student.lastName}"></td>
+<!--                                    <td><a class="btn btn-info" th:href="@{/class/edit/{id} (id = ${class.id})}">Edit</a></td>-->
+                                    <td><a class="btn btn-danger" th:href="@{'/class/' + ${classID} + '/remove/' + ${student.id} }"
+                                           onclick="return confirm('Are you sure?')"> Remove</a> </td>
                                 </tr>
                                 </tbody>
                             </table>
+
+                        </div>
+
+                        <div class="header">
+                            <br>
+                            <label>Tests of this class</label>
+                            </h2>
+                        </div>
+                        <div class="body">
+
+
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- #END# Basic Examples -->
+
+            <!-- #END# Radio -->
         </div>
     </section>
 
@@ -145,6 +149,6 @@
 
     <!-- Demo Js -->
     <script src="../../../static/js/demo.js" th:src="@{/js/demo.js}"></script>
-</body>
 
+</body>
 </html>
