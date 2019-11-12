@@ -25,6 +25,7 @@ public class TestController {
 
         model.addAttribute("classes" , classService.findAll());
         model.addAttribute("test" , new Test());
+        model.addAttribute("activeParent" , "test");
 
         return "test/createTest";
     }
@@ -43,7 +44,7 @@ public class TestController {
     public String testList(Model model){
 
         model.addAttribute("tests" , testService.findAll());
-
+        model.addAttribute("activeParent" , "test");
 
         return "test/testList";
     }
@@ -57,7 +58,7 @@ public class TestController {
         model.addAttribute("questionsNumber" , test.getQuestions().size());
         model.addAttribute("question" , new Question());
         model.addAttribute("test" , test);
-
+        model.addAttribute("activeParent" , "test");
         return "test/testView";
     }
 }

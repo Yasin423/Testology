@@ -28,47 +28,47 @@
         <div class="menu">
             <ul class="list">
                 <li class="header">MAIN NAVIGATION</li>
-                <li>
-                    <a >
+                <li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active':''}">
+                    <a  >
                         <i class="material-icons">home</i>
                         <span>Home</span>
                     </a>
                 </li>
-                <li class="active">
+                <li th:classappend="${activeParent=='class' ? 'active':''}">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">widgets</i>
                         <span>Class</span>
                     </a>
                     <ul class="ml-menu">
-                        <li class="active">
+                        <li th:classappend="${#httpServletRequest.getRequestURI() == '/class/add' ? 'active':''}">
                             <a th:href="@{/class/add}">
                                 <span>Create Class</span>
                             </a>
                         </li>
-                        <li>
+                        <li th:classappend="${#httpServletRequest.getRequestURI() == '/class/join' ? 'active':''}">
                             <a th:href="@{/class/join}">
                                 <span>Join Class</span>
                             </a>
                         </li>
-                        <li>
+                        <li th:classappend="${#httpServletRequest.getRequestURI() == '/class/list' ? 'active':''}">
                             <a th:href="@{/class/list}">
                                 <span>Class List</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="active">
+                <li th:classappend="${activeParent=='test' ? 'active':''}">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">widgets</i>
                         <span>Test</span>
                     </a>
                     <ul class="ml-menu">
-                        <li>
+                        <li th:classappend="${#httpServletRequest.getRequestURI() == '/test/create' ? 'active':''}">
                             <a th:href="@{/test/create}">
                                 <span>Create Test</span>
                             </a>
                         </li>
-                        <li>
+                        <li th:classappend="${#httpServletRequest.getRequestURI() == '/test/list' ? 'active':''}">
                             <a th:href="@{/test/list}">
                                 <span>Test List</span>
                             </a>

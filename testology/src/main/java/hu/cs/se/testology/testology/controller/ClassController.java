@@ -24,6 +24,7 @@ public class ClassController {
     public String renderCreateClassPage(Model model){
 
         model.addAttribute("class", new Class());
+        model.addAttribute("activeParent" , "class");
         return "class/createClass";
     }
 
@@ -41,7 +42,7 @@ public class ClassController {
     public String renderClassListPage(Model model){
 
         model.addAttribute("classes" , classService.findAll());
-
+        model.addAttribute("activeParent" , "class");
         return "class/classList";
     }
 
@@ -49,7 +50,7 @@ public class ClassController {
     public String editClass(@PathVariable Long id , Model model){
 
         model.addAttribute("class" , classService.findClassByID(id));
-
+        model.addAttribute("activeParent" , "class");
 
         return "class/createClass";
     }
@@ -63,8 +64,8 @@ public class ClassController {
     }
 
     @GetMapping("/class/join")
-    public String renderJoinClassPage(){
-
+    public String renderJoinClassPage(Model model){
+        model.addAttribute("activeParent" , "class");
         return "class/joinClass";
     }
 
@@ -72,7 +73,7 @@ public class ClassController {
     public String renderClassViewPage(@PathVariable Long id , Model model){
 
         Class aClass = classService.findClassByID(id);
-
+        model.addAttribute("activeParent" , "class");
         model.addAttribute("classID" , id);
         model.addAttribute("students" , aClass.getStudents());
         return "class/classView";
