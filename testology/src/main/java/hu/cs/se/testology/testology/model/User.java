@@ -70,7 +70,7 @@ public class User {
         this.role = role;
     }
 
-    @ManyToMany(mappedBy = "students" , cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "students" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     public List<Class> getClassesAsStudent() {
         return classesAsStudent;
     }
@@ -79,7 +79,7 @@ public class User {
         this.classesAsStudent = classesAsStudent;
     }
 
-    @OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     public List<Class> getClassesAsTeacher() {
         return classesAsTeacher;
     }

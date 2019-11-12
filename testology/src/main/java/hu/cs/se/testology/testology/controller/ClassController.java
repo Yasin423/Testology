@@ -11,6 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Controller
 public class ClassController {
 
@@ -39,9 +43,19 @@ public class ClassController {
     }
 
     @GetMapping("/class/list")
-    public String renderClassListPage(Model model){
+    public String renderClassListPage(Model model, @AuthenticationPrincipal UserPrincipal userPrincipal){
 
-        model.addAttribute("classes" , classService.findAll());
+        List<Class> classes = new ArrayList<>();
+
+        if(userPrincipal.getUser().getRole().equals("ROLE_TEACHER")){
+            classes = classService.getAllByTeacher(userPrincipal.getUser());
+        }
+
+        if(userPrincipal.getUser().getRole().equals("ROLE_STUDENT")){
+
+        }
+
+        model.addAttribute("classes" , classes);
         model.addAttribute("activeParent" , "class");
         return "class/classList";
     }

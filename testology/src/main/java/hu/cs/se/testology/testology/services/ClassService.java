@@ -1,6 +1,7 @@
 package hu.cs.se.testology.testology.services;
 
 import hu.cs.se.testology.testology.model.Class;
+import hu.cs.se.testology.testology.model.User;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface ClassService {
     void deleteByID(Long id);
 
     Class findByAccessCode(String accessCode);
+
+    List<Class> getAllByTeacher(User teacher);
 }

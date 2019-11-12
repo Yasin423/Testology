@@ -43,6 +43,7 @@ public class Class {
         this.description = description;
     }
 
+    @Column(unique = true)
     public String getAccessCode() {
         return accessCode;
     }

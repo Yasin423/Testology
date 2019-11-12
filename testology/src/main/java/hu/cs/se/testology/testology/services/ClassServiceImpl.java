@@ -1,6 +1,7 @@
 package hu.cs.se.testology.testology.services;
 
 import hu.cs.se.testology.testology.model.Class;
+import hu.cs.se.testology.testology.model.User;
 import hu.cs.se.testology.testology.repositories.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,11 @@ public class ClassServiceImpl  implements ClassService {
     @Override
     public Class findByAccessCode(String accessCode) {
         return classRepository.findByAccessCode(accessCode);
+    }
+
+    @Override
+    public List<Class> getAllByTeacher(User teacher) {
+        return classRepository.getAllByTeacher(teacher);
     }
 
 
