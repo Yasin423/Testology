@@ -80,7 +80,7 @@ public class Class {
 //        this.students = students;
 //    }
 
-    @OneToMany(mappedBy = "aClass" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "aClass" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     public List<ClassRegistration> getRegistrations() {
         return registrations;
     }

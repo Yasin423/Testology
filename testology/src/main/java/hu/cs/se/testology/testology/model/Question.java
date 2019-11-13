@@ -1,6 +1,8 @@
 package hu.cs.se.testology.testology.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Question {
@@ -16,6 +18,12 @@ public class Question {
     private String correctAnswer;
 
     private Test test;
+
+    private List<QuestionAnswer> questionAnswers;
+
+    public Question(){
+        questionAnswers = new ArrayList<>();
+    }
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
@@ -83,5 +91,14 @@ public class Question {
 
     public void setTest(Test test) {
         this.test = test;
+    }
+
+    @OneToMany(mappedBy = "question")
+    public List<QuestionAnswer> getQuestionAnswers() {
+        return questionAnswers;
+    }
+
+    public void setQuestionAnswers(List<QuestionAnswer> questionAnswers) {
+        this.questionAnswers = questionAnswers;
     }
 }

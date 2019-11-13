@@ -4,12 +4,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class ClassRegistration implements Serializable{
+public class QuestionAnswer implements Serializable {
 
     private Long id;
-
+    private Question question;
     private User user;
-    private Class aClass;
+
+    private String answer = "";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +23,17 @@ public class ClassRegistration implements Serializable{
     }
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "question_id")
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     public User getUser() {
         return user;
     }
@@ -31,13 +42,11 @@ public class ClassRegistration implements Serializable{
         this.user = user;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "class_id")
-    public Class getaClass() {
-        return aClass;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setaClass(Class aClass) {
-        this.aClass = aClass;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 }

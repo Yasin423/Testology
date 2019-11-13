@@ -132,6 +132,8 @@ public class ClassController {
 
         Class aClass = classService.findByAccessCode(accessCode);
 
+        System.out.println(aClass);
+
 //        if(aClass == null){
 //
 //            return "redirect:/"

@@ -1,7 +1,6 @@
 package hu.cs.se.testology.testology.model;
 
 import javax.persistence.*;
-import java.security.AllPermission;
 import java.util.List;
 
 @Entity
@@ -13,10 +12,10 @@ public class User {
     private String username;
     private String password;
 
-//    private List<Class> classesAsStudent;
     private List<ClassRegistration> registrations;
-
     private List<Class> classesAsTeacher;
+    private List<TestResult> testResults;
+    private List<QuestionAnswer> questionAnswers;
 
     //roles are stored comma separated
     private String role = "";
@@ -81,15 +80,6 @@ public class User {
         this.registrations = registrations;
     }
 
-    //    @ManyToMany(mappedBy = "students" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
-//    public List<Class> getClassesAsStudent() {
-//        return classesAsStudent;
-//    }
-//
-//    public void setClassesAsStudent(List<Class> classesAsStudent) {
-//        this.classesAsStudent = classesAsStudent;
-//    }
-
     @OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     public List<Class> getClassesAsTeacher() {
         return classesAsTeacher;
@@ -97,5 +87,23 @@ public class User {
 
     public void setClassesAsTeacher(List<Class> classesAsTeacher) {
         this.classesAsTeacher = classesAsTeacher;
+    }
+
+    @OneToMany(mappedBy = "student" , cascade = CascadeType.ALL)
+    public List<TestResult> getTestResults() {
+        return testResults;
+    }
+
+    public void setTestResults(List<TestResult> testResults) {
+        this.testResults = testResults;
+    }
+
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
+    public List<QuestionAnswer> getQuestionAnswers() {
+        return questionAnswers;
+    }
+
+    public void setQuestionAnswers(List<QuestionAnswer> questionAnswers) {
+        this.questionAnswers = questionAnswers;
     }
 }
