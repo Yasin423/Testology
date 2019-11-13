@@ -109,6 +109,8 @@
                                     <div sec:authorize="hasRole('TEACHER')">
                                         <td><a class="btn btn-info" th:href="@{/test/edit/{id} (id = ${test.id})}">Edit</a></td>
                                     </div>
+                                    <td><a class="btn btn-danger" th:href="@{/test/{id}/take/{userId} (id = ${test.id}
+                                    , userId = ${#authentication.getPrincipal().getUser().getId()})}">Take Test</a></td>
                                     <td><a class="btn btn-danger" th:href="@{/test/view/{id} (id = ${test.id})}">View</a> </td>
                                 </tr>
                                 </tbody>

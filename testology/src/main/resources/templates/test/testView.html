@@ -84,32 +84,77 @@
                                 <label >This test has <span th:text="${questionsNumber}"></span> questions</label>
                             </h2>
                         </div>
-                        <div class="body">
 
-                            <th:block th:each="question : ${questions}">
-
-                                <div class="question">
-                                    <p th:text="${question.questionText}"></p>
-                                    <div class="demo-radio-button">
-                                        <input th:name="${question.id}" type="radio" th:id="${question.firstAnswer}" class="radio-col-orange"  />
-                                        <label th:for="${question.firstAnswer}" th:text="${question.firstAnswer}"></label>
-                                        <input th:name="${question.id}" type="radio" th:id="${question.secondAnswer}" class="radio-col-orange"/>
-                                        <label th:for="${question.secondAnswer}" th:text="${question.secondAnswer}"></label>
-                                        <input th:name="${question.id}" type="radio" th:id="${question.thirdAnswer}" class="radio-col-orange"/>
-                                        <label th:for="${question.thirdAnswer}" th:text="${question.thirdAnswer}"></label>
-                                        <input th:name="${question.id}" type="radio" th:id="${question.fourthAnswer}" class="radio-col-orange" />
-                                        <label th:for="${question.fourthAnswer}" th:text="${question.fourthAnswer}"></label>
-
+                        <th:block th:if="${isViewing == false}">
+<!--                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">-->
+<!--                                <div class="card">-->
+                                    <div class="header">
+                                        <h2>
+                                            Answer the following questions
+                                        </h2>
                                     </div>
-                                </div>
-                            </th:block>
 
-                        </div>
+                                    <div class="body">
+
+                                        <form th:action="@{/test/{testId}/submit/{userId} (testId = ${testId}, userId = ${userId})}" th:object="${answersKey}" method="post">
+                                            <th:block th:each="question : ${questions}">
+
+                                                <div class="question">
+                                                    <p th:text="${question.questionText}"></p>
+                                                    <div class="demo-radio-button">
+
+                                                        <th:block th:each="answer : ${tempText}">
+                                                            <input th:name="${question.id}" type="radio" th:id="${question.id} + ${answer}"
+                                                                   th:value="${question.__${answer}__}"  th:field="*{answers[__${question.id}__]}"
+                                                                   class="radio-col-orange"  />
+
+                                                            <label  th:text="${question.__${answer}__}" th:for="${question.id} + ${answer}"></label>
+                                                        </th:block>
+
+                                                    </div>
+                                                </div>
+                                            </th:block>
+
+                                            <button class="btn btn-primary waves-effect" style=" margin-top: 10px"
+                                                    type="submit" onclick="return confirm('Are you sure?')">Submit</button>
+                                        </form>
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </div>
+                        </th:block>
+
+
+                        <th:block th:if="${isViewing}">
+                            <div class="body">
+
+                                <th:block th:each="question : ${questions}">
+
+                                    <div class="question">
+                                        <p th:text="${question.questionText}"></p>
+                                        <div class="demo-radio-button">
+                                            <input th:name="${question.id}" type="radio" th:id="${question.id} + 'firstAnswer'"  class="radio-col-orange"  />
+                                            <label  th:text="${question.firstAnswer}" th:for="${question.id} + 'firstAnswer'"></label>
+
+                                            <input th:name="${question.id}" type="radio" th:id="${question.id} + 'secondAnswer'" class="radio-col-orange"/>
+                                            <label  th:text="${question.secondAnswer}" th:for="${question.id} + 'secondAnswer'"></label>
+
+                                            <input th:name="${question.id}" type="radio" th:id="${question.id} + 'thirdAnswer'" class="radio-col-orange"/>
+                                            <label th:text="${question.thirdAnswer}" th:for="${question.id} + 'thirdAnswer'"></label>
+
+                                            <input th:name="${question.id}" type="radio" th:id="${question.id} + 'fourthAnswer'" class="radio-col-orange" />
+                                            <label th:text="${question.fourthAnswer}" th:for="${question.id} + 'fourthAnswer'"></label>
+
+                                        </div>
+                                    </div>
+                                </th:block>
+
+                            </div>
+                        </th:block>
                     </div>
                 </div>
             </div>
             <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" sec:authorize="hasRole('TEACHER')">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" sec:authorize="hasRole('TEACHER')" th:if="${isViewing}">
                     <div class="card">
                         <div class="header">
                             <h2>
