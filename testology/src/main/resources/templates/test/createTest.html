@@ -103,6 +103,7 @@
                                     <div class="col-sm-12">
                                        <select class="form-control show-tick" th:name="classID" required >
 
+                                           <option disabled selected>Please Select a class</option>
 <!--                                           <option th:value=">Choose class</option>-->
                                            <th:block th:each="class : ${classes}">
                                                <option th:value="${class.id}" th:text="${class.className}" ></option>

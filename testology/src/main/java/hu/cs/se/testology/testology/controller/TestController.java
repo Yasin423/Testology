@@ -2,9 +2,11 @@ package hu.cs.se.testology.testology.controller;
 
 import hu.cs.se.testology.testology.model.Question;
 import hu.cs.se.testology.testology.model.Test;
+import hu.cs.se.testology.testology.security.UserPrincipal;
 import hu.cs.se.testology.testology.services.ClassService;
 import hu.cs.se.testology.testology.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +23,9 @@ public class TestController {
     private TestService testService;
 
     @GetMapping("/test/create")
-    public String renderCreateTestPage(Model model){
+    public String renderCreateTestPage(Model model , @AuthenticationPrincipal UserPrincipal userPrincipal){
 
-        model.addAttribute("classes" , classService.findAll());
+        model.addAttribute("classes" , classService.getAllByTeacher(userPrincipal.getUser()));
         model.addAttribute("test" , new Test());
         model.addAttribute("activeParent" , "test");
 

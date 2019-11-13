@@ -70,6 +70,10 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="body">
+
+                            <div th:if="${param.null}">
+                                <label>There is no class with that access code</label>
+                            </div>
                             <form id="form_validation" method="POST" th:action="@{/class/join}">
 
 <!--                                <input type="hidden" th:field="*{id}">-->

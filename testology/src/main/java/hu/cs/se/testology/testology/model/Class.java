@@ -14,7 +14,8 @@ public class Class {
     private String accessCode;
 
     private List<Test> tests;
-    private List<User> students;
+//    private List<User> students;
+    private List<ClassRegistration> registrations;
     private User teacher;
 
     @Id
@@ -62,14 +63,23 @@ public class Class {
     }
 
 
-    @ManyToMany
-    @JoinTable(name = "student_class" , joinColumns = @JoinColumn(name = "class_id") , inverseJoinColumns = @JoinColumn(name = "student_id"))
-    public List<User> getStudents() {
-        return students;
+//    @ManyToMany
+//    @JoinTable(name = "student_class" , joinColumns = @JoinColumn(name = "class_id") , inverseJoinColumns = @JoinColumn(name = "student_id"))
+//    public List<User> getStudents() {
+//        return students;
+//    }
+//
+//    public void setStudents(List<User> students) {
+//        this.students = students;
+//    }
+
+    @OneToMany(mappedBy = "aClass" , cascade = CascadeType.ALL)
+    public List<ClassRegistration> getRegistrations() {
+        return registrations;
     }
 
-    public void setStudents(List<User> students) {
-        this.students = students;
+    public void setRegistrations(List<ClassRegistration> registrations) {
+        this.registrations = registrations;
     }
 
     @ManyToOne

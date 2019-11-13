@@ -12,7 +12,8 @@ public class User {
     private String username;
     private String password;
 
-    private List<Class> classesAsStudent;
+//    private List<Class> classesAsStudent;
+    private List<ClassRegistration> registrations;
 
     private List<Class> classesAsTeacher;
 
@@ -70,14 +71,23 @@ public class User {
         this.role = role;
     }
 
-    @ManyToMany(mappedBy = "students" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
-    public List<Class> getClassesAsStudent() {
-        return classesAsStudent;
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
+    public List<ClassRegistration> getRegistrations() {
+        return registrations;
     }
 
-    public void setClassesAsStudent(List<Class> classesAsStudent) {
-        this.classesAsStudent = classesAsStudent;
+    public void setRegistrations(List<ClassRegistration> registrations) {
+        this.registrations = registrations;
     }
+
+    //    @ManyToMany(mappedBy = "students" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+//    public List<Class> getClassesAsStudent() {
+//        return classesAsStudent;
+//    }
+//
+//    public void setClassesAsStudent(List<Class> classesAsStudent) {
+//        this.classesAsStudent = classesAsStudent;
+//    }
 
     @OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     public List<Class> getClassesAsTeacher() {
