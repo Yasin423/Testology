@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -87,7 +88,7 @@
 
                             <th:block th:each="question : ${questions}">
 
-                                <div class="question" >
+                                <div class="question">
                                     <p th:text="${question.questionText}"></p>
                                     <div class="demo-radio-button">
                                         <input th:name="${question.id}" type="radio" th:id="${question.firstAnswer}" class="radio-col-orange"  />
@@ -108,14 +109,14 @@
                 </div>
             </div>
             <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" sec:authorize="hasRole('TEACHER')">
                     <div class="card">
                         <div class="header">
                             <h2>
                                 Add new Question to this test
                             </h2>
                         </div>
-                        <div class="body">
+                        <div class="body" >
                             <form th:action="@{/question/create/{testID} (testID = ${test.id})}" th:object="${question}" method="post">
                                 <input type="hidden" th:name="${testID}" th:value="${test.id}">
 

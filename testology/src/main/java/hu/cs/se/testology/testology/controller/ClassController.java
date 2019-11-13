@@ -9,14 +9,12 @@ import hu.cs.se.testology.testology.services.ClassService;
 import hu.cs.se.testology.testology.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,7 +30,6 @@ public class ClassController {
     @Autowired
     private RegistrationRepository registrationRepository;
 
-
     @GetMapping("/class/add")
     public String renderCreateClassPage(Model model){
 
@@ -46,9 +43,7 @@ public class ClassController {
 
         aClass.setTeacher(userPrincipal.getUser());
 
-
         try {
-
             aClass.setAccessCode(generateAccessCode());
         }catch (ConstraintViolationException e){
             aClass.setAccessCode(generateAccessCode());
