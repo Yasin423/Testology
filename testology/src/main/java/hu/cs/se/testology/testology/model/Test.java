@@ -12,7 +12,7 @@ public class Test {
     private String testName;
 
     private Class aClass;
-
+    private List<TestResult> testResults;
     private List<Question> questions;
 
     @Id
@@ -52,4 +52,14 @@ public class Test {
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
+
+    @OneToMany(mappedBy = "test")
+    public List<TestResult> getTestResults() {
+        return testResults;
+    }
+
+    public void setTestResults(List<TestResult> testResults) {
+        this.testResults = testResults;
+    }
+
 }

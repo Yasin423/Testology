@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -97,9 +98,10 @@
                                     <td th:text="${student.id}"></td>
                                     <td th:text="${student.firstName}"></td>
                                     <td th:text="${student.lastName}"></td>
-<!--                                    <td><a class="btn btn-info" th:href="@{/class/edit/{id} (id = ${class.id})}">Edit</a></td>-->
-                                    <td><a class="btn btn-danger" th:href="@{'/class/' + ${classID} + '/remove/' + ${student.id} }"
-                                           onclick="return confirm('Are you sure?')"> Remove</a> </td>
+                                    <div sec:authorize="hasRole('TEACHER')">
+                                        <td><a class="btn btn-danger" th:href="@{'/class/' + ${classID} + '/remove/' + ${student.id} }"
+                                               onclick="return confirm('Are you sure?')"> Remove</a> </td>
+                                    </div>
                                 </tr>
                                 </tbody>
                             </table>

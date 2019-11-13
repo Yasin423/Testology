@@ -69,9 +69,6 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
-                            <h2 > Access Code ( 23525 )</h2>
-                        </div>
                         <div class="body">
                             <form id="form_validation" method="POST" th:action="@{/class/add}" th:object="${class}">
 
@@ -87,12 +84,6 @@
                                     <div class="form-line">
                                         <input type="text" class="form-control" name="description" th:field="*{description}" required>
                                         <label class="form-label">Description</label>
-                                    </div>
-                                </div>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="description" th:field="*{accessCode}" required>
-                                        <label class="form-label">AccessCode</label>
                                     </div>
                                 </div>
                                 <button class="btn btn-primary waves-effect" type="submit" value="submit">SUBMIT</button>

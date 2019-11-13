@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -105,7 +106,11 @@
                                     <td th:text="${test.id}"></td>
                                     <td th:text="${test.testName}"></td>
                                     <td th:text="${test.aClass.className}"></td>
-                                    <td><a class="btn btn-info" th:href="@{/test/edit/{id} (id = ${test.id})}">Edit</a></td>
+                                    <div sec:authorize="hasRole('TEACHER')">
+                                        <td><a class="btn btn-info" th:href="@{/test/edit/{id} (id = ${test.id})}">Edit</a></td>
+                                    </div>
+                                    <td><a class="btn btn-danger" th:href="@{/test/{id}/take/{userId} (id = ${test.id}
+                                    , userId = ${#authentication.getPrincipal().getUser().getId()})}">Take Test</a></td>
                                     <td><a class="btn btn-danger" th:href="@{/test/view/{id} (id = ${test.id})}">View</a> </td>
                                 </tr>
                                 </tbody>

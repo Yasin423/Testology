@@ -1,5 +1,6 @@
 <!DOCTYPE  >
-<html lang="en" html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title></title>
@@ -13,7 +14,10 @@
                 <img src="../../static/images/user.png" th:src="@{/images/user.png}" width="48" height="48" alt="User" />
             </div>
             <div class="info-container">
-                <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
+                <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                    <span th:text ="${#authentication.getPrincipal().getUser().getFirstName()} "></span>
+                    <span th:text ="${#authentication.getPrincipal().getUser().getLastName()}"></span>
+                </div>
                 <div class="btn-group user-helper-dropdown">
                     <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                     <ul class="dropdown-menu pull-right">
@@ -40,16 +44,23 @@
                         <span>Class</span>
                     </a>
                     <ul class="ml-menu">
-                        <li th:classappend="${#httpServletRequest.getRequestURI() == '/class/add' ? 'active':''}">
-                            <a th:href="@{/class/add}">
-                                <span>Create Class</span>
-                            </a>
-                        </li>
+                        <div sec:authorize="hasRole('TEACHER')">
+                            <li th:classappend="${#httpServletRequest.getRequestURI() == '/class/add' ? 'active':''}">
+                                <a th:href="@{/class/add}">
+                                    <span>Create Class</span>
+                                </a>
+                            </li>
+                        </div>
+
+                        <div sec:authorize="hasRole('STUDENT')">
                         <li th:classappend="${#httpServletRequest.getRequestURI() == '/class/join' ? 'active':''}">
                             <a th:href="@{/class/join}">
                                 <span>Join Class</span>
                             </a>
                         </li>
+                        </div>
+
+
                         <li th:classappend="${#httpServletRequest.getRequestURI() == '/class/list' ? 'active':''}">
                             <a th:href="@{/class/list}">
                                 <span>Class List</span>
@@ -63,11 +74,15 @@
                         <span>Test</span>
                     </a>
                     <ul class="ml-menu">
+
+                        <div sec:authorize="hasRole('TEACHER')">
                         <li th:classappend="${#httpServletRequest.getRequestURI() == '/test/create' ? 'active':''}">
                             <a th:href="@{/test/create}">
                                 <span>Create Test</span>
                             </a>
                         </li>
+                        </div>
+
                         <li th:classappend="${#httpServletRequest.getRequestURI() == '/test/list' ? 'active':''}">
                             <a th:href="@{/test/list}">
                                 <span>Test List</span>
