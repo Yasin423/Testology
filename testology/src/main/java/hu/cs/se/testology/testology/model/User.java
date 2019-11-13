@@ -1,6 +1,7 @@
 package hu.cs.se.testology.testology.model;
 
 import javax.persistence.*;
+import java.security.AllPermission;
 import java.util.List;
 
 @Entity

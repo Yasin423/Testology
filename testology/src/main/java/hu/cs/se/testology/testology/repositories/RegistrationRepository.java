@@ -13,6 +13,10 @@ public interface RegistrationRepository extends JpaRepository<ClassRegistration,
 
     ClassRegistration findByAClassAndUser(Class aClass , User student);
 
+    ClassRegistration findByAClass(Class aClass);
+
+    void deleteAllByAClass(Class aClass);
+
     List<ClassRegistration> findAllByUser(User student);
 
 

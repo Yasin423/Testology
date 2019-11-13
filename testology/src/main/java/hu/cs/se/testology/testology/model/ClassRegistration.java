@@ -4,13 +4,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class ClassRegistration implements Serializable {
+public class ClassRegistration{
 
     private Long id;
 
     private User user;
     private Class aClass;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

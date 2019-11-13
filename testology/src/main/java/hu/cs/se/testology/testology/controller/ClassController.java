@@ -14,9 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class ClassController {
@@ -44,9 +46,21 @@ public class ClassController {
 
         aClass.setTeacher(userPrincipal.getUser());
 
+
+        try {
+
+            aClass.setAccessCode(generateAccessCode());
+        }catch (ConstraintViolationException e){
+            aClass.setAccessCode(generateAccessCode());
+        }
+
         classService.save(aClass);
 
         return "redirect:/class/list";
+    }
+
+    private String generateAccessCode(){
+        return UUID.randomUUID().toString();
     }
 
     @GetMapping("/class/list")
@@ -84,6 +98,10 @@ public class ClassController {
 
     @GetMapping("/class/delete/{id}")
     public String deleteClass(@PathVariable Long id){
+
+        Class aClass = classService.findClassByID(id);
+
+        System.out.println(aClass.getId());
 
         classService.deleteByID(id);
 
@@ -148,10 +166,6 @@ public class ClassController {
         ClassRegistration registration = registrationRepository.findByAClassAndUser(aClass , student);
 
         registrationRepository.delete(registration);
-
-//        aClass.getStudents().remove(userService.findUserByID(studentID));
-
-//        classService.save(aClass);
 
         return "redirect:/class/view/" + classID;
     }

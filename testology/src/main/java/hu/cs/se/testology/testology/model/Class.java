@@ -1,13 +1,16 @@
 package hu.cs.se.testology.testology.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Class {
 
     @Column(name = "class_id")
-    private long id;
+    private Long id;
 
     private String className;
     private String description;
@@ -18,13 +21,17 @@ public class Class {
     private List<ClassRegistration> registrations;
     private User teacher;
 
+    public Class(){
+        registrations = new ArrayList<>();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,7 +51,7 @@ public class Class {
         this.description = description;
     }
 
-    @Column(unique = true)
+    @Column( unique = true)
     public String getAccessCode() {
         return accessCode;
     }
@@ -90,5 +97,31 @@ public class Class {
 
     public void setTeacher(User teacher) {
         this.teacher = teacher;
+    }
+
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Class other = (Class) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
     }
 }
