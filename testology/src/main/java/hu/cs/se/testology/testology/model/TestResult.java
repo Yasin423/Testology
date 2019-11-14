@@ -10,7 +10,9 @@ public class TestResult {
     private User student;
     private Test test;
 
-    private int result;
+    private int score;
+
+    private boolean isTaken;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,11 +44,19 @@ public class TestResult {
         this.test = test;
     }
 
-    public int getResult() {
-        return result;
+    public int getScore() {
+        return score;
     }
 
-    public void setResult(int result) {
-        this.result = result;
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public boolean isTaken() {
+        return isTaken;
+    }
+
+    public void setTaken(boolean taken) {
+        isTaken = taken;
     }
 }

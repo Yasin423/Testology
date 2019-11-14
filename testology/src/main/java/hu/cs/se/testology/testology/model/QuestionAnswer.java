@@ -10,7 +10,7 @@ public class QuestionAnswer implements Serializable {
     private Question question;
     private User user;
 
-    private String answer = "";
+    private String answer;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

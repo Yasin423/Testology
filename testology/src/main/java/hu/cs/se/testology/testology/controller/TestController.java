@@ -4,10 +4,7 @@ import hu.cs.se.testology.testology.model.*;
 import hu.cs.se.testology.testology.model.Class;
 import hu.cs.se.testology.testology.repositories.RegistrationRepository;
 import hu.cs.se.testology.testology.security.UserPrincipal;
-import hu.cs.se.testology.testology.services.ClassService;
-import hu.cs.se.testology.testology.services.QuestionService;
-import hu.cs.se.testology.testology.services.TestService;
-import hu.cs.se.testology.testology.services.UserService;
+import hu.cs.se.testology.testology.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -15,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TestController {
@@ -34,6 +33,12 @@ public class TestController {
 
     @Autowired
     private RegistrationRepository registrationRepository;
+
+    @Autowired
+    private QuestionAnswerService questionAnswerService;
+
+    @Autowired
+    private TestResultService testResultService;
 
     @GetMapping("/test/create")
     public String renderCreateTestPage(Model model, @AuthenticationPrincipal UserPrincipal userPrincipal) {
@@ -58,23 +63,48 @@ public class TestController {
     @GetMapping("/test/list")
     public String testList(Model model, @AuthenticationPrincipal UserPrincipal userPrincipal) {
 
-        List<Test> tests = new ArrayList<>();
+        //these are the answered tests for teacher
+        //these are the taken tests for student
+        List<Test> secondCatTests = new ArrayList<>();
+
+        Map<String , String> takenTestsResults = new HashMap<>();
+
+        //these are the not answered tests for teacher
+        //these are the not taken tests for student
+        List<Test> firstCatTests = new ArrayList<>();
 
         if (userPrincipal.getUser().getRole().equals("ROLE_TEACHER")) {
-            for (Class c : userPrincipal.getUser().getClassesAsTeacher()){
-                tests.addAll(testService.findAllByAClass(c));
+            for (Class c : classService.getAllByTeacher(userPrincipal.getUser())) {
+                for(Test test : testService.findAllByAClass(c)){
+                    if(test.isAnswered())
+                        secondCatTests.add(test);
+                    if (!test.isAnswered())
+                        firstCatTests.add(test);
+                }
             }
+
         }
         if (userPrincipal.getUser().getRole().equals("ROLE_STUDENT")) {
+
+            for(TestResult testResult : testResultService.findAllByStudent(userPrincipal.getUser())){
+                secondCatTests.add(testResult.getTest());
+                takenTestsResults.put(String.valueOf(testResult.getTest().getId()) , String.valueOf(testResult.getScore()));
+
+            }
+
             for (ClassRegistration classRegistration : registrationRepository.findAllByUser(userPrincipal.getUser())) {
-                tests.addAll(classRegistration.getaClass().getTests());
+
+                for(Test test : testService.findAllByAClass(classRegistration.getaClass())){
+                    if (test.isAnswered() && !secondCatTests.contains(test)){
+                        firstCatTests.add(test);
+                    }
+                }
             }
         }
 
-
-
-        model.addAttribute("tests", tests);
-
+        model.addAttribute("testResults" , takenTestsResults);
+        model.addAttribute("newTests", firstCatTests);
+        model.addAttribute("takenTests", secondCatTests);
         model.addAttribute("activeParent", "test");
 
         return "test/testList";
@@ -104,7 +134,7 @@ public class TestController {
         model.addAttribute("userId", userId);
         model.addAttribute("testId", id);
         model.addAttribute("test", test);
-        model.addAttribute("questions", test.getQuestions());
+        model.addAttribute("questions", questionService.findAllByTest(test));
         model.addAttribute("answersKey", answersKey);
         model.addAttribute("isViewing", false);
         model.addAttribute("tempText", new String[]{"firstAnswer", "secondAnswer", "thirdAnswer", "fourthAnswer"});
@@ -116,27 +146,72 @@ public class TestController {
     public String submitTest(@PathVariable(name = "testId") Long id, @PathVariable(name = "userId") Long userId,
                              @ModelAttribute AnswersKey answersKey, @AuthenticationPrincipal UserPrincipal userPrincipal) {
 
-        List<Question> questions = testService.findTestById(id).getQuestions();
+        Test test = testService.findTestById(id);
+        List<Question> questions = test.getQuestions();
         User user = userPrincipal.getUser();
 
-        for (Question question : questions) {
+        if (user.getRole().equals("ROLE_TEACHER")) {
+            for (Question question : questions) {
+                question.setCorrectAnswer(answersKey.getAnswers().get(String.valueOf(question.getId())));
 
-            QuestionAnswer questionAnswer = new QuestionAnswer();
+                questionService.save(question);
+            }
 
-            questionAnswer.setQuestion(question);
-            questionAnswer.setAnswer(answersKey.getAnswers().get(String.valueOf(question.getId())));
-            questionAnswer.setUser(user);
+            test.setAnswered(true);
+            testService.save(test);
 
-            question.getQuestionAnswers().add(questionAnswer);
+            for(TestResult testResult : testResultService.findAllByTest(test)){
+                checkTest(test , testResult.getStudent() , true);
+            }
 
-            System.out.println(question.getQuestionAnswers().get(0).getAnswer());
-            System.out.println(questionAnswer.getQuestion().getQuestionText());
-            System.out.println(questionAnswer.getUser().getUsername());
+        } else if (user.getRole().equals("ROLE_STUDENT")) {
 
-            userService.save(user);
-            questionService.save(question);
+            for (Question question : questions) {
+
+                QuestionAnswer questionAnswer = new QuestionAnswer();
+
+                questionAnswer.setQuestion(question);
+                questionAnswer.setUser(user);
+                questionAnswer.setAnswer(answersKey.getAnswers().get(String.valueOf(question.getId())));
+
+                question.getQuestionAnswers().add(questionAnswer);
+
+                questionAnswerService.save(questionAnswer);
+            }
+
+            if(test.isAnswered()){
+                checkTest(test , user , false);
+            }
+
         }
+
 
         return "redirect:/test/list";
     }
+
+    private int checkTest(Test test , User user , boolean isAnswerKeyChanged) {
+        int score = 0;
+        List<Question> questions = testService.findTestById(test.getId()).getQuestions();
+
+        for (Question question : questions){
+            QuestionAnswer questionAnswer = questionAnswerService.findByQuestionAndUser(question , user);
+
+            if(questionAnswer.getAnswer().equals(question.getCorrectAnswer())){
+                score = score + 1;
+            }
+        }
+
+
+        TestResult testResult = (isAnswerKeyChanged) ? testResultService.findByTest(test) : new TestResult();
+
+        testResult.setTest(test);
+        testResult.setStudent(user);
+        testResult.setTaken(true);
+        testResult.setScore(score);
+
+        testResultService.save(testResult);
+
+        return score;
+    }
+
 }

@@ -2,6 +2,7 @@ package hu.cs.se.testology.testology.services;
 
 import hu.cs.se.testology.testology.model.Class;
 import hu.cs.se.testology.testology.model.Question;
+import hu.cs.se.testology.testology.model.Test;
 import hu.cs.se.testology.testology.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,11 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void deleteByID(Long id) {
         questionRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Question> findAllByTest(Test test) {
+        return questionRepository.findAllByTest(test);
     }
 
 
