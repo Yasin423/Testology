@@ -1,6 +1,7 @@
 package hu.cs.se.testology.testology.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,9 +12,15 @@ public class Test {
 
     private String testName;
 
+    private boolean isAnswered;
+
     private Class aClass;
     private List<TestResult> testResults;
     private List<Question> questions;
+
+    public Test(){
+        questions = new ArrayList<>();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -62,4 +69,11 @@ public class Test {
         this.testResults = testResults;
     }
 
+    public boolean isAnswered() {
+        return isAnswered;
+    }
+
+    public void setAnswered(boolean answered) {
+        isAnswered = answered;
+    }
 }

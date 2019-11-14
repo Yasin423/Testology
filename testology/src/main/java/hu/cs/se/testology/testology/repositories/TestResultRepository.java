@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface TestResultRepository extends JpaRepository<TestResult , Long> {
 
-    List<ClassRegistration> findAllByStudent(User student);
-    List<ClassRegistration> findAllByTest(Test test);
+    List<TestResult> findAllByStudent(User student);
+    List<TestResult> findAllByTest(Test test);
+
+    TestResult findByTest(Test test);
 }

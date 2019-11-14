@@ -106,7 +106,7 @@
                                                         <th:block th:each="answer : ${tempText}">
                                                             <input th:name="${question.id}" type="radio" th:id="${question.id} + ${answer}"
                                                                    th:value="${question.__${answer}__}"  th:field="*{answers[__${question.id}__]}"
-                                                                   class="radio-col-orange"  />
+                                                                   class="radio-col-orange" required />
 
                                                             <label  th:text="${question.__${answer}__}" th:for="${question.id} + ${answer}"></label>
                                                         </th:block>
