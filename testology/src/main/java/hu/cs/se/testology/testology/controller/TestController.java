@@ -63,15 +63,16 @@ public class TestController {
     @GetMapping("/test/list")
     public String testList(Model model, @AuthenticationPrincipal UserPrincipal userPrincipal) {
 
+        //these are the not answered tests for teacher
+        //these are the not taken tests for student
+        List<Test> firstCatTests = new ArrayList<>();
+
         //these are the answered tests for teacher
         //these are the taken tests for student
         List<Test> secondCatTests = new ArrayList<>();
 
         Map<String , String> takenTestsResults = new HashMap<>();
 
-        //these are the not answered tests for teacher
-        //these are the not taken tests for student
-        List<Test> firstCatTests = new ArrayList<>();
 
         if (userPrincipal.getUser().getRole().equals("ROLE_TEACHER")) {
             for (Class c : classService.getAllByTeacher(userPrincipal.getUser())) {

@@ -9,4 +9,9 @@ import java.util.List;
 public interface TestRepository extends JpaRepository<Test,Long> {
 
     List<Test> findAllByAClass(Class aClass);
+
+    List<Test> findAllByAClassAndAnsweredIsTrue(Class aClass);
+
+    List<Test> findAllByAClassAndAnsweredIsFalse(Class aClass);
+
 }

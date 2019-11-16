@@ -19,6 +19,6 @@ public interface RegistrationRepository extends JpaRepository<ClassRegistration,
 
     List<ClassRegistration> findAllByUser(User student);
 
-
+    int countAllByUser(User user);
 
 }
