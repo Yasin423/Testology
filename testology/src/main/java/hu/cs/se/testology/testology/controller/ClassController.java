@@ -1,11 +1,12 @@
 package hu.cs.se.testology.testology.controller;
 
+import hu.cs.se.testology.testology.model.*;
 import hu.cs.se.testology.testology.model.Class;
-import hu.cs.se.testology.testology.model.ClassRegistration;
-import hu.cs.se.testology.testology.model.User;
 import hu.cs.se.testology.testology.repositories.RegistrationRepository;
 import hu.cs.se.testology.testology.security.UserPrincipal;
 import hu.cs.se.testology.testology.services.ClassService;
+import hu.cs.se.testology.testology.services.TestResultService;
+import hu.cs.se.testology.testology.services.TestService;
 import hu.cs.se.testology.testology.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class ClassController {
@@ -29,6 +28,12 @@ public class ClassController {
 
     @Autowired
     private RegistrationRepository registrationRepository;
+
+    @Autowired
+    private TestService testService;
+
+    @Autowired
+    private TestResultService testResultService;
 
     @GetMapping("/class/add")
     public String renderCreateClassPage(Model model){
@@ -110,16 +115,59 @@ public class ClassController {
     }
 
     @GetMapping("class/view/{id}")
-    public String renderClassViewPage(@PathVariable Long id , Model model){
+    public String renderClassViewPage(@PathVariable Long id , Model model , @AuthenticationPrincipal UserPrincipal userPrincipal){
 
         Class aClass = classService.findClassByID(id);
 
         List<User> students = new ArrayList<>();
 
+        //these are the not answered tests for teacher
+        //these are the not taken tests for student
+        List<Test> firstCatTests = new ArrayList<>();
+
+        //these are the answered tests for teacher
+        //these are the taken tests for student
+        List<Test> secondCatTests = new ArrayList<>();
+
+        Map<String , String> takenTestsResults = new HashMap<>();
+
+        if (userPrincipal.getUser().getRole().equals("ROLE_TEACHER")) {
+            for (Class c : classService.getAllByTeacher(userPrincipal.getUser())) {
+                for(Test test : testService.findAllByAClass(c)){
+                    if(test.isAnswered())
+                        secondCatTests.add(test);
+                    if (!test.isAnswered())
+                        firstCatTests.add(test);
+                }
+            }
+
+        }
+
+        if (userPrincipal.getUser().getRole().equals("ROLE_STUDENT")) {
+
+            for(TestResult testResult : testResultService.findAllByStudent(userPrincipal.getUser())){
+                secondCatTests.add(testResult.getTest());
+                takenTestsResults.put(String.valueOf(testResult.getTest().getId()) , String.valueOf(testResult.getScore()));
+
+            }
+
+            for (ClassRegistration classRegistration : registrationRepository.findAllByUser(userPrincipal.getUser())) {
+
+                for(Test test : testService.findAllByAClass(classRegistration.getaClass())){
+                    if (test.isAnswered() && !secondCatTests.contains(test)){
+                        firstCatTests.add(test);
+                    }
+                }
+            }
+        }
+
         for(ClassRegistration registration : registrationRepository.findAllByAClass(aClass)){
             students.add(registration.getUser());
         }
 
+        model.addAttribute("testResults" , takenTestsResults);
+        model.addAttribute("newTests", firstCatTests);
+        model.addAttribute("takenTests", secondCatTests);
         model.addAttribute("activeParent" , "class");
         model.addAttribute("classID" , id);
         model.addAttribute("students" , students);

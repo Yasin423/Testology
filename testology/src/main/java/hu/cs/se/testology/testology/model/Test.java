@@ -51,7 +51,7 @@ public class Test {
         this.aClass = aClass;
     }
 
-    @OneToMany(mappedBy = "test")
+    @OneToMany(mappedBy = "test" , cascade = CascadeType.ALL)
     public List<Question> getQuestions() {
         return questions;
     }

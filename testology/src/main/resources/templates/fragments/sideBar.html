@@ -33,7 +33,7 @@
             <ul class="list">
                 <li class="header">MAIN NAVIGATION</li>
                 <li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active':''}">
-                    <a  >
+                    <a th:href="@{/}" >
                         <i class="material-icons">home</i>
                         <span>Home</span>
                     </a>

@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -68,21 +69,42 @@
     </section>
     <section class="content">
         <div class="container-fluid">
-            <div class="block-header">
-                <h2>FORM EXAMPLES</h2>
-            </div>
 
           <!-- Basic Examples -->
           <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>
-                            Class List
-                        </h2>
+                        <h1>Welcome to Testology</h1>
                     </div>
                     <div class="body">
-                        <h1>Welecom to Testology</h1>
+
+                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                            <th:block sec:authorize="hasRole('TEACHER')">
+                            <tr>
+                                <td>Number of Classes</td>
+                                <td>Tests with Answer Key</td>
+                                <td>Tests without Answer Key</td>
+                            </tr>
+                            <tr>
+                                <td th:text="${numClasses}"></td>
+                                <td th:text="${testsWithAnswerKey}"></td>
+                                <td th:text="${testsWithoutAnswerKey}"></td>
+                            </tr>
+                            </th:block>
+                            <th:block sec:authorize="hasRole('STUDENT')">
+                                <tr>
+                                    <td>Number of Classes</td>
+                                    <td>Tests Taken</td>
+                                    <td>Tests Not Taken</td>
+                                </tr>
+                                <tr>
+                                    <td th:text="${numClasses}"></td>
+                                    <td th:text="${numberOfTestsTaken}"></td>
+                                    <td th:text="${numberOfTestsNotTaken}"></td>
+                                </tr>
+                            </th:block>
+                        </table>
                     </div>
                 </div>
             </div>
